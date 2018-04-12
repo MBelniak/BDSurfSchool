@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class BDController {
     private BDModel model;
@@ -19,12 +20,11 @@ public class BDController {
         {
             try {
                 model.CloseConnection();
-                System.out.println("Connection closed");
             }
-            catch(Exception exc)
-            {
-                System.out.println(exc);
+            catch (SQLException e1) {
+               System.out.println(e1);
             }
+            System.out.println("Connection closed");
         }
     }
     BDController(BDModel model, BDView view)

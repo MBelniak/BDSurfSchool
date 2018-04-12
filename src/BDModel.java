@@ -1,14 +1,15 @@
+import java.sql.SQLException;
+
 public class BDModel {
-    private OracleConnection Connection;
+    private OracleConnection MyBase;
     BDModel()
     {
     }
     void MakeConnection(String User, String Password)
     {
-        Connection = new OracleConnection(User, Password);
+        MyBase = new OracleConnection(User, Password);
     }
-    void CloseConnection()
-    {
-
+    void CloseConnection() throws SQLException {
+        MyBase.CloseConnection();
     }
 }
