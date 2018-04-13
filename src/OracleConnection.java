@@ -1,6 +1,11 @@
 import java.sql.*;
+import java.util.ArrayList;
+
 public class OracleConnection {
+
     private Connection con;
+    private Statement stmnt;
+
     public OracleConnection(String User, String Password)
     {
         try{
@@ -8,10 +13,18 @@ public class OracleConnection {
             con = DriverManager.getConnection
                     ("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf",User,Password);
             System.out.println("Connection established");
+            stmnt = con.createStatement();
         }
-        catch(Exception e)
+    catch(Exception e)
         { System.out.println(e);}
     }
+
     void CloseConnection() throws SQLException
-    { con.close();}
+    {
+        con.close();
+    }
+
+    ResultSet DoQuery(String query) throws SQLException {
+        return stmnt.executeQuery(query);
+    }
 }

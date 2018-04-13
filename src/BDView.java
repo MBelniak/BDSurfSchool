@@ -37,6 +37,7 @@ public class BDView extends JFrame{
     }
     void AddWindowListener(WindowAdapter listener)
     {
-        this.addWindowListener(listener);
+        //button.addWindowListener(listener);   tu jak zrobisz okno pojawiajace sie po zalogowaniu to do niego dodasz listenera,
+                                                //ktory zamyka polaczenie
     }
 }
