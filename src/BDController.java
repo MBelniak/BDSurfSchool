@@ -13,18 +13,6 @@ public class BDController {
         @Override
         public void actionPerformed(ActionEvent e) {
             model.MakeConnection(view.GetUsername(), view.GetPassword());
-//            String emp = "Clients";
-//            ArrayList<String> a = new ArrayList<>();
-//            a.add("Client_PESEL");
-//            a.add("FirstName");
-//            a.add("SecondName");
-//            a.add("Address");
-//            ArrayList<String> c = new ArrayList<>();
-//            c.add("81020200000");
-//            c.add("Jan");
-//            c.add("Nowak");
-//            c.add("Grodno");
-//            model.DeleteFromTable(emp, a, c);
 //            System.out.println(model.error);
         }
     }
