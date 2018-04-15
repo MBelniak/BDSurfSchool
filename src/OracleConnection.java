@@ -5,6 +5,7 @@ public class OracleConnection {
 
     private Connection con;
     private Statement stmnt;
+    private boolean connected = false ;
 
     public OracleConnection(String User, String Password)
     {
@@ -14,9 +15,14 @@ public class OracleConnection {
                     ("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf",User,Password);
             System.out.println("Connection established");
             stmnt = con.createStatement();
+            connected = true;
         }
     catch(Exception e)
         { System.out.println(e);}
+    }
+
+    public boolean isConnected(){
+        return connected;
     }
 
     void CloseConnection() throws SQLException

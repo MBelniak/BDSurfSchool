@@ -20,6 +20,10 @@ public class BDModel {
         MyBase = new OracleConnection(User, Password);
     }
 
+    public boolean TestConnection(){
+        return MyBase.isConnected();
+    }
+
     void CloseConnection() throws SQLException
     {
         MyBase.CloseConnection();

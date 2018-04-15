@@ -8,14 +8,22 @@ import java.util.ArrayList;
 public class BDController {
     private BDModel model;
     private BDView view;
+
     class ButtonListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
             model.MakeConnection(view.GetUsername(), view.GetPassword());
-//            System.out.println(model.error);
+            if(model.TestConnection()){
+                view.dispose();
+
+                view = new BDView(1);
+                view.setVisible(true);
+            }
+//           System.out.println(model.error);
         }
     }
+
     class WindowListener extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e)
@@ -24,11 +32,13 @@ public class BDController {
                 model.CloseConnection();
             }
             catch (SQLException e1) {
+
                System.out.println(e1);
             }
             System.out.println("Connection closed");
         }
     }
+
     BDController(BDModel model, BDView view)
     {
         this.model = model;
