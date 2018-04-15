@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -8,17 +9,15 @@ import java.util.ArrayList;
 public class BDController {
     private BDModel model;
     private BDView view;
+    private BDLoginWindow loginWindow;
 
-    class ButtonListener implements ActionListener{
-
+    class LoginListener extends ButtonListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            model.MakeConnection(view.GetUsername(), view.GetPassword());
-            if(model.TestConnection()){
-                view.dispose();
+            model.MakeConnection(loginWindow.GetUsername(), loginWindow.GetPassword());
 
-                view = new BDView(1);
-                view.setVisible(true);
+            if(model.TestConnection()){
+                loginWindow.setVisible(false);
             }
 //           System.out.println(model.error);
         }
@@ -39,11 +38,15 @@ public class BDController {
         }
     }
 
-    BDController(BDModel model, BDView view)
+
+    BDController(BDModel model, BDView view, BDLoginWindow loginWindow)
     {
         this.model = model;
         this.view = view;
-        this.view.AddSetListener(new ButtonListener());
+        this.loginWindow = loginWindow;
+        this.loginWindow.AddSetListener(new LoginListener());
+        loginWindow.setVisible(true);
+//        this.view.AddSetListener(new LoginListener());
         this.view.AddWindowListener(new WindowListener());
 
     }
