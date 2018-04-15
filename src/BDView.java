@@ -37,6 +37,7 @@ public class BDView extends JFrame{
         loginPanel.add(set);
 
         this.add(loginPanel);
+        reteetre
     }
     BDView(int n){
         if ( n > 0) {
