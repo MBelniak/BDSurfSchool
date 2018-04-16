@@ -16,30 +16,39 @@ public class BDView extends JFrame{
 
     // elementy właściwego view
     private JComboBox<String> tableHeader;
-    private JTable dataTable;
+    private JTable dataTable = new JTable();
     private JScrollPane scrollPane;
 
     private JCheckBox pesel = new JCheckBox("PESEL");
-    private JCheckBox name = new JCheckBox("Name");
-    private JCheckBox secondName = new JCheckBox("Second Name");
-    private JCheckBox dateOfBirth = new JCheckBox("dateOfBirth");
-    private JCheckBox address = new JCheckBox("Address");
-    private JCheckBox jobType = new JCheckBox("Job Type");
-    private JCheckBox salaray = new JCheckBox("Salary");
-    private JCheckBox supPesel = new JCheckBox("Supervisor Pesel");
-    private JCheckBox begDate = new JCheckBox("Beginning Date");
-    private JCheckBox endDate = new JCheckBox("Ending Date");
-    private JCheckBox prodYear = new JCheckBox("production Year");
-    private JCheckBox schoolId = new JCheckBox("School_id");
+    private JCheckBox firstName = new JCheckBox("firstname");
+    private JCheckBox secondName = new JCheckBox("secondname");
+    private JCheckBox dateOfBirth = new JCheckBox("dateofbirth");
+    private JCheckBox address = new JCheckBox("address");
+    private JCheckBox jobType = new JCheckBox("jobtype");
+    private JCheckBox salaray = new JCheckBox("salary");
+    private JCheckBox schoolId = new JCheckBox("school_id");
+    private JCheckBox supPesel = new JCheckBox("supervisor_PESEL");
+    private JCheckBox schoolIdPK = new JCheckBox("school_id");
+    private JCheckBox managerPesel = new JCheckBox("manager_PESEL");
+    private JCheckBox clientPesel = new JCheckBox("client_PESEL");
+    private JCheckBox clientPeselFK = new JCheckBox("client_PESEL");
+    private JCheckBox employeePesel = new JCheckBox("employee_PESEL");
+    private JCheckBox name = new JCheckBox("name");
+    private JCheckBox eqId = new JCheckBox("equipment_id");
+    private JCheckBox begDate = new JCheckBox("beginning_date");
+    private JCheckBox endDate = new JCheckBox("end_date");
+    private JCheckBox prodYear = new JCheckBox("productionyear");
+    private JCheckBox courseBegDate = new JCheckBox("course_beginning_date");
+    private JCheckBox courseEndDate = new JCheckBox("course_end_date");
+    private JCheckBox courseEmpPesel = new JCheckBox("course_employee_PESEL");
+    private JCheckBox courseClientPesel = new JCheckBox("client_PESEL");
+
     private JCheckBox id = new JCheckBox("id");
 
     private JButton addButton = new JButton("+");
     private JButton removeButton = new JButton("-");
     private JButton updateButton = new JButton("Update");
-    private JTextField fNameField = new JTextField(15);
-    private JTextField lNameField = new JTextField(15);
-    private JTextField peselField = new JTextField(11);
-    private JTextField addressField = new JTextField(30);
+
 
 
     BDView(){
@@ -59,6 +68,7 @@ public class BDView extends JFrame{
             tableHeader.addItem("Employees");
             tableHeader.addItem("Schools");
             tableHeader.addItem("Courses");
+            tableHeader.addItem("Courses_clients");
             tableHeader.addItem("Clients");
             tableHeader.addItem("Equipment");
 
@@ -69,18 +79,15 @@ public class BDView extends JFrame{
 
 
             comboPanel.add(tableHeader);
-            //tablePanel.add(dataTable);
+            tablePanel.add(dataTable);
             //tablePanel.add(scrollPane);
-            tablePanel.add(fNameField);
-            tablePanel.add(lNameField);
-            tablePanel.add(peselField);
-            tablePanel.add(addressField);
 
-            setCheckBoxPanel("Employee");
+
+            setCheckBoxPanel("Employees");
+
 
             this.add(comboPanel, BorderLayout.NORTH);
             this.add(tablePanel, BorderLayout.CENTER);
-            //this.add(checkBoxPanel, BorderLayout.SOUTH);
             this.add(buttonPanel, BorderLayout.EAST);
 
             //setVisible(true);
@@ -89,9 +96,10 @@ public class BDView extends JFrame{
         checkBoxPanel.removeAll();
         JPanel checkBox = new JPanel();
         switch (tableName){
-            case "Employee":{
+            case "Employees":{
                 checkBox.add(pesel);
-                checkBox.add(name);
+                pesel.setSelected(true);
+                checkBox.add(firstName);
                 checkBox.add(secondName);
                 checkBox.add(dateOfBirth);
                 checkBox.add(address);
@@ -102,38 +110,48 @@ public class BDView extends JFrame{
                 break;
             }
             case "Schools":{
-                checkBox.add(schoolId);
+                checkBox.add(schoolIdPK);
                 checkBox.add(address);
-                checkBox.add(pesel);
+                checkBox.add(managerPesel);
                 checkBox.add(name);
                 break;
             }
             case "Courses":{
                 checkBox.add(begDate);
                 checkBox.add(endDate);
-                checkBox.add(pesel);
+                checkBox.add(employeePesel);
                 break;
             }
             case "Clients":{
-                checkBox.add(pesel);
-                checkBox.add(name);
+                checkBox.add(clientPesel);
+                checkBox.add(firstName);
                 checkBox.add(secondName);
                 checkBox.add(address);
                 checkBox.add(dateOfBirth);
                 break;
             }
             case "Equipment":{
-                checkBox.add(id);
+                checkBox.add(eqId);
                 checkBox.add(prodYear);
                 checkBox.add(schoolId);
-                checkBox.add(pesel);
+                checkBox.add(clientPeselFK);
+                break;
+            }
+            case "Courses_clients":{
+                checkBox.add(courseBegDate);
+                checkBox.add(courseEndDate);
+                checkBox.add(courseEmpPesel);
+                checkBox.add(courseClientPesel);
                 break;
             }
         }
         checkBoxPanel = checkBox;
         this.add(checkBoxPanel, BorderLayout.SOUTH);
+        checkBoxPanel.validate();
         checkBoxPanel.revalidate();
+        checkBoxPanel.repaint();
     }
+
 
     String getTableHeaders(){
         return tableHeader.getItemAt(tableHeader.getSelectedIndex());
@@ -149,6 +167,35 @@ public class BDView extends JFrame{
     void AddComboListener(ActionListener a)
     {
         tableHeader.addActionListener(a);
+    }
+
+    void AddCheckBoxListener(ActionListener a)
+    {
+        firstName.addActionListener(a);
+        secondName.addActionListener(a);
+        dateOfBirth.addActionListener(a);
+        address.addActionListener(a);
+        jobType.addActionListener(a);
+        salaray.addActionListener(a);
+        schoolId.addActionListener(a);
+        supPesel.addActionListener(a);
+        managerPesel.addActionListener(a);
+        name.addActionListener(a);
+        prodYear.addActionListener(a);
+
+    }
+    void AddCheckBoxAlwaysSelectedListener(ActionListener a){
+        pesel.addActionListener(a);             pesel.setSelected(true);
+        schoolIdPK.addActionListener(a);        schoolIdPK.setSelected(true);
+        clientPesel.addActionListener(a);       clientPesel.setSelected(true);
+        begDate.addActionListener(a);           begDate.setSelected(true);
+        endDate.addActionListener(a);           endDate.setSelected(true);
+        employeePesel.addActionListener(a);     employeePesel.setSelected(true);
+        eqId.addActionListener(a);              eqId.setSelected(true);
+        courseBegDate.addActionListener(a);     courseBegDate.setSelected(true);
+        courseEndDate.addActionListener(a);     courseEndDate.setSelected(true);
+        courseEmpPesel.addActionListener(a);    courseEmpPesel.setSelected(true);
+        courseClientPesel.addActionListener(a); courseClientPesel.setSelected(true);
     }
 
     void AddWindowListener(WindowAdapter listener)
