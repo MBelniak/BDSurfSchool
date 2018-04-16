@@ -179,6 +179,10 @@ public class BDView extends JFrame{
     {
         addWindow = new AddWindow(this, getTableHeaders());
     }
+    void AddAddButtonListener(ActionListener a)
+    {
+        addButton.addActionListener(a);
+    }
     void AddConnectListener(ActionListener a)
     {
         loginDialog.addConnectListener(a);
@@ -232,6 +236,7 @@ public class BDView extends JFrame{
         comboPanel.setVisible(true);
         checkBoxPanel.setVisible(true);
         buttonPanel.setVisible(true);
+
     }
     void OpenLoginDialog()
     {

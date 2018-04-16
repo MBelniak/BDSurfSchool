@@ -20,6 +20,7 @@ public class BDController {
         this.view.AddComboListener(new ComboListener());
         this.view.AddCheckBoxAlwaysSelectedListener(new CheckBoxAlwaysSelectedListener());
         this.view.AddCheckBoxListener(new CheckBoxListener());
+        this.view.AddAddButtonListener(new AddButtonListener());
     }
 
     class LoginListener extends ButtonListener{
