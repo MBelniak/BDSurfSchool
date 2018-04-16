@@ -31,6 +31,10 @@ public class BDModel {
         return 0;
     }
 
+    public boolean TestConnection(){
+        return MyBase.isConnected();
+    }
+
     int CloseConnection()
     {
         try {
