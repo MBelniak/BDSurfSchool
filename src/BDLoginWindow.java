@@ -19,7 +19,6 @@ public class BDLoginWindow extends JDialog {
         JPanel loginPanel = new JPanel();
         this.setSize(WIDTH, HEIGHT);
         setUndecorated(true);
-        //getRootPane().setWindowDecorationPane(JRootPane.NONE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width/2 - this.getSize().width/2 , dim.height/2 - this.getSize().height/2);
 

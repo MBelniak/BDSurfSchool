@@ -1,10 +1,7 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class BDController {
     private BDModel model;
@@ -20,6 +17,20 @@ public class BDController {
                 loginWindow.setVisible(false);
             }
 //           System.out.println(model.error);
+        }
+    }
+    class ComboListener extends ButtonListener{
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            view.setCheckBoxPanel(view.getTableHeaders());
+        }
+    }
+    class AddButtonListener extends ButtonListener{
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            //TODO listener przyciusku 'add'
         }
     }
 
@@ -48,6 +59,7 @@ public class BDController {
         loginWindow.setVisible(true);
 //        this.view.AddSetListener(new LoginListener());
         this.view.AddWindowListener(new WindowListener());
+        this.view.AddComboListener(new ComboListener());
 
     }
 
