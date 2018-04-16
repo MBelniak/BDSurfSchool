@@ -1,18 +1,26 @@
-import javafx.scene.control.ComboBox;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BDController {
     private BDModel model;
     private BDView view;
     private String entity;
-    private ArrayList<String> attributes;
+    private ArrayList<String> attributes = new ArrayList<>();
+
+    BDController(BDModel model, BDView view) {
+        this.model = model;
+        this.view = view;
+        this.view.AddConnectListener(new LoginListener());
+        this.view.OpenLoginDialog();
+//        this.view.AddSetListener(new LoginListener());
+        this.view.AddWindowListener(new WindowListener());
+        this.view.AddComboListener(new ComboListener());
+        this.view.AddCheckBoxAlwaysSelectedListener(new CheckBoxAlwaysSelectedListener());
+        this.view.AddCheckBoxListener(new CheckBoxListener());
+    }
 
     class LoginListener extends ButtonListener{
         @Override
@@ -74,7 +82,7 @@ public class BDController {
                     break;
                 }
             }
-
+            attributes = defaultNames;
             System.out.print(defaultNames);
         }
     }
@@ -108,7 +116,6 @@ public class BDController {
 //
 //        }
     class CheckBoxListener extends ButtonListener{
-        private ArrayList<String> columnNames = new ArrayList<>();
 
         @Override
         public void actionPerformed(ActionEvent e)
@@ -116,17 +123,12 @@ public class BDController {
             JCheckBox box = (JCheckBox) e.getSource();
 
             if(box.isSelected()){
-                columnNames.add(box.getText());
+                attributes.add(box.getText());
             }
             else{
-                columnNames.remove(columnNames.indexOf(box.getText()));
-                /*for(int i = 0 ; i < columnNames.size(); i++){
-                    if(box.getText() == columnName.in){
-
-                    }
-                }*/
+                attributes.remove(attributes.indexOf(box.getText()));
             }
-            System.out.println(columnNames);
+            System.out.println(attributes);
 
         }
 
@@ -153,17 +155,6 @@ public class BDController {
     }
 
 
-    BDController(BDModel model, BDView view) {
-        this.model = model;
-        this.view = view;
-        this.view.AddConnectListener(new LoginListener());
-        this.view.OpenLoginDialog();
-//        this.view.AddSetListener(new LoginListener());
-        this.view.AddWindowListener(new WindowListener());
-        this.view.AddComboListener(new ComboListener());
-        this.view.AddCheckBoxAlwaysSelectedListener(new CheckBoxAlwaysSelectedListener());
-        this.view.AddCheckBoxListener(new CheckBoxListener());
-    }
 }
 
 

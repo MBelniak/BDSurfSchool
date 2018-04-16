@@ -30,7 +30,7 @@ public class BDLoginWindow extends JDialog {
         loginPanel.add(connect);
 
         this.add(loginPanel, BorderLayout.CENTER);
-        this.setVisible(true);
+        //this.setVisible(true);
 
     }
     void addConnectListener(ActionListener a)

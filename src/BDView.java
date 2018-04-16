@@ -45,9 +45,11 @@ public class BDView extends JFrame{
 
     private JCheckBox id = new JCheckBox("id");
 
+    private JList<JButton> buttonJList = new JList<>();
     private JButton addButton = new JButton("+");
     private JButton removeButton = new JButton("-");
     private JButton updateButton = new JButton("Update");
+    private JButton showButton = new JButton("Show");
 
 
 
@@ -63,8 +65,8 @@ public class BDView extends JFrame{
             setLocation(dim.width/2 - this.getSize().width/2 , dim.height/2 - this.getSize().height/2);
 
 
-
             tableHeader = new JComboBox<>();
+            tableHeader.addItem("None");
             tableHeader.addItem("Employees");
             tableHeader.addItem("Schools");
             tableHeader.addItem("Courses");
@@ -76,6 +78,8 @@ public class BDView extends JFrame{
             buttonPanel.add(addButton);
             buttonPanel.add(removeButton);
             buttonPanel.add(updateButton);
+            buttonPanel.add(showButton);
+
 
 
             comboPanel.add(tableHeader);
@@ -83,14 +87,13 @@ public class BDView extends JFrame{
             //tablePanel.add(scrollPane);
 
 
-            setCheckBoxPanel("Employees");
+            setCheckBoxPanel("-");
 
 
             this.add(comboPanel, BorderLayout.NORTH);
             this.add(tablePanel, BorderLayout.CENTER);
             this.add(buttonPanel, BorderLayout.EAST);
 
-            //setVisible(true);
     }
     void setCheckBoxPanel(String tableName){
         checkBoxPanel.removeAll();
@@ -98,22 +101,21 @@ public class BDView extends JFrame{
         switch (tableName){
             case "Employees":{
                 checkBox.add(pesel);
-                pesel.setSelected(true);
-                checkBox.add(firstName);
-                checkBox.add(secondName);
-                checkBox.add(dateOfBirth);
-                checkBox.add(address);
-                checkBox.add(jobType);
-                checkBox.add(salaray);
-                checkBox.add(schoolId);
-                checkBox.add(supPesel);
+                checkBox.add(firstName);        firstName.setSelected(false);
+                checkBox.add(secondName);       secondName.setSelected(false);
+                checkBox.add(dateOfBirth);      dateOfBirth.setSelected(false);
+                checkBox.add(address);          address.setSelected(false);
+                checkBox.add(jobType);          jobType.setSelected(false);
+                checkBox.add(salaray);          salaray.setSelected(false);
+                checkBox.add(schoolId);         schoolId.setSelected(false);
+                checkBox.add(supPesel);         supPesel.setSelected(false);
                 break;
             }
             case "Schools":{
                 checkBox.add(schoolIdPK);
-                checkBox.add(address);
-                checkBox.add(managerPesel);
-                checkBox.add(name);
+                checkBox.add(address);          address.setSelected(false);
+                checkBox.add(managerPesel);     managerPesel.setSelected(false);
+                checkBox.add(name);             name.setSelected(false);
                 break;
             }
             case "Courses":{
@@ -124,17 +126,17 @@ public class BDView extends JFrame{
             }
             case "Clients":{
                 checkBox.add(clientPesel);
-                checkBox.add(firstName);
-                checkBox.add(secondName);
-                checkBox.add(address);
-                checkBox.add(dateOfBirth);
+                checkBox.add(firstName);        firstName.setSelected(false);
+                checkBox.add(secondName);       secondName.setSelected(false);
+                checkBox.add(address);          address.setSelected(false);
+                checkBox.add(dateOfBirth);      dateOfBirth.setSelected(false);
                 break;
             }
             case "Equipment":{
                 checkBox.add(eqId);
-                checkBox.add(prodYear);
-                checkBox.add(schoolId);
-                checkBox.add(clientPeselFK);
+                checkBox.add(prodYear);         prodYear.setSelected(false);
+                checkBox.add(schoolId);         schoolId.setSelected(false);
+                checkBox.add(clientPeselFK);    clientPeselFK.setSelected(false);
                 break;
             }
             case "Courses_clients":{
@@ -200,7 +202,7 @@ public class BDView extends JFrame{
         managerPesel.addActionListener(a);
         name.addActionListener(a);
         prodYear.addActionListener(a);
-
+        clientPeselFK.addActionListener(a);
     }
     void AddCheckBoxAlwaysSelectedListener(ActionListener a){
         pesel.addActionListener(a);             pesel.setSelected(true);
