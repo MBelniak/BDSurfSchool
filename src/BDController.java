@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BDController {
@@ -21,6 +22,11 @@ public class BDController {
         this.view.AddCheckBoxAlwaysSelectedListener(new CheckBoxAlwaysSelectedListener());
         this.view.AddCheckBoxListener(new CheckBoxListener());
         this.view.AddAddButtonListener(new AddButtonListener());
+        this.view.AddShowButtonListener(new ShowButtonListener());
+    }
+
+    ArrayList<String> getAttributes(){
+        return attributes;
     }
 
     class LoginListener extends ButtonListener{
@@ -83,8 +89,8 @@ public class BDController {
                     break;
                 }
             }
+            entity = box.getItemAt(box.getSelectedIndex());
             attributes = defaultNames;
-            System.out.print(defaultNames);
         }
     }
     class AddButtonListener extends ButtonListener{
@@ -129,7 +135,6 @@ public class BDController {
             else{
                 attributes.remove(attributes.indexOf(box.getText()));
             }
-            System.out.println(attributes);
 
         }
 
@@ -140,7 +145,21 @@ public class BDController {
         public void actionPerformed(ActionEvent e){
             JCheckBox box = (JCheckBox) e.getSource();
 
-                box.setSelected(true);
+            box.setSelected(true);
+        }
+    }
+    class ShowButtonListener extends ButtonListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+           // System.out.println(entity);
+
+            //System.out.println(attributes);
+            model.GetSelectedTable(entity, attributes);
+            try {
+                view.ShowResultTable(getAttributes(),model.getResult());
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

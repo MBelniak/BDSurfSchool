@@ -1,7 +1,12 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BDView extends JFrame{
     private static final int WIDTH = 1000;
@@ -17,7 +22,7 @@ public class BDView extends JFrame{
     // elementy właściwego view
     private JComboBox<String> tableHeader;
     private JTable dataTable = new JTable();
-    private JScrollPane scrollPane;
+    //private JScrollPane scrollPane = new JScrollPane(dataTable);
 
     private JCheckBox pesel = new JCheckBox("PESEL");
     private JCheckBox firstName = new JCheckBox("firstname");
@@ -93,6 +98,7 @@ public class BDView extends JFrame{
             this.add(comboPanel, BorderLayout.NORTH);
             this.add(tablePanel, BorderLayout.CENTER);
             this.add(buttonPanel, BorderLayout.EAST);
+            //this.add(scrollPane,BorderLayout.CENTER);
 
     }
     void setCheckBoxPanel(String tableName){
@@ -183,6 +189,10 @@ public class BDView extends JFrame{
     {
         addButton.addActionListener(a);
     }
+    void AddShowButtonListener(ActionListener a)
+    {
+        showButton.addActionListener(a);
+    }
     void AddConnectListener(ActionListener a)
     {
         loginDialog.addConnectListener(a);
@@ -241,6 +251,32 @@ public class BDView extends JFrame{
     void OpenLoginDialog()
     {
         loginDialog.setVisible(true);
+    }
+
+    void ShowResultTable(ArrayList<String> attributes, ResultSet resultSet) throws SQLException {
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+
+        String[] arrayOfAttributes = new String[attributes.size()];
+        for(int i = 0 ; i < attributes.size(); i++){
+            arrayOfAttributes[i] = attributes.get(i);
+        }
+        DefaultTableModel tableModel = new DefaultTableModel(arrayOfAttributes , 0);
+        while (resultSet.next())
+        {
+            String[] tmp = new String[attributes.size()];
+
+            for(int i = 1; i <= rsmd.getColumnCount(); i++)
+            {
+                tmp[i-1] = resultSet.getString(i);
+            }
+            tableModel.addRow(tmp);
+        }
+        JScrollPane scrollPane = new JScrollPane(dataTable);
+        dataTable.setModel(tableModel);
+        tablePanel.add(scrollPane, BorderLayout.CENTER);
+        tablePanel.validate();
+        tablePanel.revalidate();
+        tablePanel.repaint();
     }
 
 }
