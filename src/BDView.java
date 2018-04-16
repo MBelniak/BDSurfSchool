@@ -31,7 +31,7 @@ public class BDView extends JFrame{
     {
         return String.valueOf(Password.getPassword());
     }
-    void AddSetListener(ActionListener a)
+    void AddConnectListener(ActionListener a)
     {
         set.addActionListener(a);
     }

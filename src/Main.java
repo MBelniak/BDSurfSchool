@@ -8,5 +8,6 @@ public class Main {
         BDController Controller = new BDController(Model, View);
         View.setVisible(true);
 
+
     }
 }

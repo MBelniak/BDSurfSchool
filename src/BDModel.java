@@ -15,14 +15,31 @@ public class BDModel {
         error = "";
     }
 
-    void MakeConnection(String User, String Password)
+    int MakeConnection(String User, String Password)
     {
-        MyBase = new OracleConnection(User, Password);
+        try {
+            MyBase = new OracleConnection(User, Password);
+        } catch (SQLException e) {
+            error = "Blad logowania. \n" + e.getMessage();
+            return e.getErrorCode();
+        }
+        catch (ClassNotFoundException e)
+        {
+            error = "Blad drivera. \n" + e.getMessage();
+            return 1;
+        }
+        return 0;
     }
 
-    void CloseConnection() throws SQLException
+    int CloseConnection()
     {
-        MyBase.CloseConnection();
+        try {
+            MyBase.CloseConnection();
+        } catch (SQLException e) {
+            error = e.getMessage();
+            return e.getErrorCode();
+        }
+        return 0;
     }
 
     int GetSelectedTable(String Entity, ArrayList<String> a)
@@ -100,6 +117,19 @@ public class BDModel {
         {
             query+= " AND " + identifierName.get(i) + " = " + identifier.get(i);
         }
+        try {
+            result = MyBase.DoQuery(query);
+        }
+        catch (SQLException e) {
+            error = e.getMessage();
+            return e.getErrorCode();
+        }
+        return 0;
+    }
+
+    int SelectWholeTable(String Entity)
+    {
+        String query = "SELECT * FROM " + Entity;
         try {
             result = MyBase.DoQuery(query);
         }
