@@ -3,8 +3,7 @@ public class Main {
 
         BDModel Model = new BDModel();
         BDView View = new BDView();
-        BDLoginWindow LoginWindow = View.createLoginDialog();
-        BDController Controller = new BDController(Model, View, LoginWindow);
+        BDController Controller = new BDController(Model, View);
         View.setVisible(true);
 
 

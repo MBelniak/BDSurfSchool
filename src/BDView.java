@@ -8,7 +8,7 @@ public class BDView extends JFrame{
     private static final int HEIGHT = 600;
 
     private BDLoginWindow loginDialog;
-
+    private AddWindow addWindow;
     private JPanel tablePanel;
     private JPanel comboPanel;
     private JPanel checkBoxPanel;
@@ -52,7 +52,7 @@ public class BDView extends JFrame{
 
 
     BDView(){
-
+            createLoginDialog();
             tablePanel = new JPanel();
             comboPanel = new JPanel();
             checkBoxPanel = new JPanel();
@@ -157,11 +157,29 @@ public class BDView extends JFrame{
         return tableHeader.getItemAt(tableHeader.getSelectedIndex());
     }
 
-    BDLoginWindow createLoginDialog()
+    void createLoginDialog()
     {
         loginDialog = new BDLoginWindow(this);
+    }
 
-        return loginDialog;
+    String[] getLoginData()
+    {
+        String[] lap = new String[2];
+        lap[0] = loginDialog.GetUsername();
+        lap[1] = loginDialog.GetPassword();
+        return lap;
+    }
+    void CloseLoginDialog()
+    {
+        loginDialog.setVisible(false);
+    }
+    void OpenAddWindow()
+    {
+        addWindow = new AddWindow(this, getTableHeaders());
+    }
+    void AddConnectListener(ActionListener a)
+    {
+        loginDialog.addConnectListener(a);
     }
 
     void AddComboListener(ActionListener a)
@@ -198,10 +216,24 @@ public class BDView extends JFrame{
         courseClientPesel.addActionListener(a); courseClientPesel.setSelected(true);
     }
 
+
     void AddWindowListener(WindowAdapter listener)
     {
-        //button.addWindowListener(listener);   tu jak zrobisz okno pojawiajace sie po zalogowaniu to do niego dodasz listenera,
-                                                //ktory zamyka polaczenie
+        this.addWindowListener(listener);
+    }
+    void DisplayErrorMessage(String message)
+    {
+        JOptionPane.showMessageDialog(this, message);
+    }
+    void OpenMainMenu()
+    {
+        comboPanel.setVisible(true);
+        checkBoxPanel.setVisible(true);
+        buttonPanel.setVisible(true);
+    }
+    void OpenLoginDialog()
+    {
+        loginDialog.setVisible(true);
     }
 
 }

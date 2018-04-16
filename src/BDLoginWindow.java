@@ -6,7 +6,7 @@ public class BDLoginWindow extends JDialog {
     private static int HEIGHT = 300;
     private static int WIDTH = 400;
 
-    private JButton set = new JButton("Set");
+    private JButton connect = new JButton("Connect");
     private JTextField Username = new JTextField(30);
     private JPasswordField Password = new JPasswordField(30);
     private JLabel text1 = new JLabel("Username: ");
@@ -27,16 +27,15 @@ public class BDLoginWindow extends JDialog {
         loginPanel.add(Username);
         loginPanel.add(text2);
         loginPanel.add(Password);
-        loginPanel.add(set);
+        loginPanel.add(connect);
 
         this.add(loginPanel, BorderLayout.CENTER);
+        this.setVisible(true);
 
     }
-
-
-    void AddSetListener(ActionListener a)
+    void addConnectListener(ActionListener a)
     {
-        set.addActionListener(a);
+        connect.addActionListener(a);
     }
     String GetUsername()
     {

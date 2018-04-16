@@ -7,18 +7,13 @@ public class OracleConnection {
     private Statement stmnt;
     private boolean connected = false ;
 
-    public OracleConnection(String User, String Password)
-    {
-        try{
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            con = DriverManager.getConnection
-                    ("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf",User,Password);
-            System.out.println("Connection established");
-            stmnt = con.createStatement();
-            connected = true;
-        }
-    catch(Exception e)
-        { System.out.println(e);}
+    public OracleConnection(String User, String Password) throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        con = DriverManager.getConnection
+                ("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf",User,Password);
+        System.out.println("Connection established");
+        stmnt = con.createStatement();
+        connected = true;
     }
 
     public boolean isConnected(){
