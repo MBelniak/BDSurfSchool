@@ -181,9 +181,42 @@ public class BDView extends JFrame{
     {
         loginDialog.setVisible(false);
     }
-    void OpenAddWindow()
+    void OpenAddWindow(ActionListener a, ActionListener b)
     {
         addWindow = new AddWindow(this, getTableHeaders());
+        addWindow.AddEnterListener(a);
+        addWindow.AddCancelListener(b);
+        addWindow.setVisible(true);
+    }
+    void CloseAddWindow()
+    {
+        addWindow.setVisible(false);
+    }
+    ArrayList<String> getAddWindowLabels()
+    {
+        ArrayList<String> result = new ArrayList<>();
+        for(int i = 0; i<addWindow.getLabels().size(); i++)
+            result.add(addWindow.getLabels().get(i));
+        return result;
+    }
+    ArrayList<String> getAddWindowValues()
+    {
+        ArrayList<String> result = new ArrayList<>();
+        if(addWindow.isEmployee())
+        {
+            for(int i = 0; i<4; i++)
+                result.add(addWindow.getTextFields().get(i).getText());
+            result.add(addWindow.getJobType());
+            for(int i =4; i<8;i++)
+            {
+                result.add(addWindow.getTextFields().get(i).getText());
+            }
+        }
+        else {
+            for (int i = 0; i < addWindow.getTextFields().size(); i++)
+                result.add(addWindow.getTextFields().get(i).getText());
+        }
+        return result;
     }
     void AddAddButtonListener(ActionListener a)
     {

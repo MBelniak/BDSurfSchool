@@ -97,7 +97,7 @@ public class BDController {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            view.OpenAddWindow();
+            view.OpenAddWindow(new EnterButtonListener(), new CancelButtonListener());
         }
     }
     //        @Override
@@ -146,6 +146,27 @@ public class BDController {
             JCheckBox box = (JCheckBox) e.getSource();
 
             box.setSelected(true);
+        }
+    }
+    class EnterButtonListener extends ButtonListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(model.InsertIntoTable(view.getTableHeaders(), view.getAddWindowLabels(), view.getAddWindowValues())!=0)
+            {
+                view.DisplayErrorMessage(model.getError());
+            }
+            else
+            {
+                view.CloseAddWindow();
+            }
+        }
+    }
+    class CancelButtonListener extends ButtonListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.CloseAddWindow();
         }
     }
     class ShowButtonListener extends ButtonListener{
