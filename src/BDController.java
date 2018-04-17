@@ -1,7 +1,5 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -22,7 +20,9 @@ public class BDController {
         this.view.AddCheckBoxAlwaysSelectedListener(new CheckBoxAlwaysSelectedListener());
         this.view.AddCheckBoxListener(new CheckBoxListener());
         this.view.AddAddButtonListener(new AddButtonListener());
+        this.view.AddRemoveListener(new RemoveButtonListener());
         this.view.AddShowButtonListener(new ShowButtonListener());
+        this.view.AddTableListener(new TableListener());
     }
 
     ArrayList<String> getAttributes(){
@@ -194,7 +194,47 @@ public class BDController {
                 System.out.println("Connection closed");
         }
     }
+    class RemoveButtonListener extends ButtonListener{
 
+        @Override
+        public void actionPerformed(ActionEvent e){
+            if(view.getDataTable().getSelectedRow()>0)
+                System.out.println("DELETE" + view.getRowValues());
+        }
+    }
+
+    class TableListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e){
+            if( view.getDataTable().getSelectedRow() > 0 ){
+                view.getColumnNames();
+                view.getRowValues();
+            }
+            else if(e.getClickCount() >=2 && view.getDataTable().getSelectedRow() > 0){
+                System.out.println("double click");
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            //view.getDataTable().getSelectedRow();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
 
 }
 

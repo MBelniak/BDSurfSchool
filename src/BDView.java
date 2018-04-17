@@ -2,11 +2,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BDView extends JFrame{
     private static final int WIDTH = 1000;
@@ -87,7 +89,7 @@ public class BDView extends JFrame{
             buttonPanel.add(showButton);
 
 
-
+            dataTable.setDefaultEditor(Object.class, null);
             comboPanel.add(tableHeader);
             tablePanel.add(dataTable);
             //tablePanel.add(scrollPane);
@@ -160,7 +162,6 @@ public class BDView extends JFrame{
         checkBoxPanel.revalidate();
         checkBoxPanel.repaint();
     }
-
 
     String getTableHeaders(){
         return tableHeader.getItemAt(tableHeader.getSelectedIndex());
@@ -291,6 +292,9 @@ public class BDView extends JFrame{
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
         String[] arrayOfAttributes = new String[attributes.size()];
+
+        tablePanel.removeAll();
+
         for(int i = 0 ; i < attributes.size(); i++){
             arrayOfAttributes[i] = attributes.get(i);
         }
@@ -307,10 +311,43 @@ public class BDView extends JFrame{
         }
         JScrollPane scrollPane = new JScrollPane(dataTable);
         dataTable.setModel(tableModel);
+        dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
         tablePanel.validate();
         tablePanel.revalidate();
         tablePanel.repaint();
     }
+    ArrayList<String> getRowValues(){
+        ArrayList<String> rowValues = new ArrayList<>();
+        int columnsNumber = dataTable.getColumnCount();
+        for(int i = 0 ; i < columnsNumber; i++){
+            if(Objects.equals(dataTable.getValueAt(dataTable.getSelectedRow(), i), null)){
+                rowValues.add("");
+            }
+            else
+                rowValues.add(dataTable.getValueAt(dataTable.getSelectedRow(), i).toString());
+        }
+       // System.out.println(rowValues);
+        return rowValues;
+    }
 
+    ArrayList<String> getColumnNames(){
+        ArrayList<String> columnNames = new ArrayList<>();
+        int columnNumber = dataTable.getColumnCount();
+        for(int i = 0; i < columnNumber; i++){
+            columnNames.add(dataTable.getColumnName(i));
+        }
+        //System.out.println(columnNames);
+        return columnNames;
+    }
+
+    JTable getDataTable(){
+        return dataTable;
+    }
+    void AddTableListener(MouseListener m){
+        dataTable.addMouseListener(m);
+    }
+    void AddRemoveListener(ActionListener a){
+        removeButton.addActionListener(a);
+    }
 }
