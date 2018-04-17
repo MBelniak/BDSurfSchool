@@ -17,6 +17,7 @@ public class BDView extends JFrame{
     private BDLoginWindow loginDialog;
     private AddWindow addWindow;
     private RemoveWindow removeWindow;
+    private ExtendedInfoWindow extendedInfoWindow;
     private JPanel tablePanel;
     private JPanel comboPanel;
     private JPanel checkBoxPanel;
@@ -194,6 +195,12 @@ public class BDView extends JFrame{
         removeWindow.AddCancelListener(b);
         removeWindow.setVisible(true);
     }
+    void OpenExtendedInfoWindow(ActionListener a, ResultSet rs, ArrayList<String> columnNames) throws SQLException {
+        extendedInfoWindow = new ExtendedInfoWindow(this, getTableName());
+        extendedInfoWindow.showExtendedTable(rs, columnNames);
+        extendedInfoWindow.AddCancelListener(a);
+        extendedInfoWindow.setVisible(true);
+    }
     void CloseDialogWindow()
     {
 
@@ -201,9 +208,13 @@ public class BDView extends JFrame{
         {
             addWindow.setVisible(false);
         }
-        else if(removeWindow.isVisible())
+        else if(removeWindow != null && removeWindow.isVisible() )
         {
             removeWindow.setVisible(false);
+        }
+        else if(extendedInfoWindow != null && extendedInfoWindow.isVisible())
+        {
+            extendedInfoWindow.setVisible(false);
         }
     }
     ArrayList<String> getAddWindowLabels()
@@ -328,7 +339,7 @@ public class BDView extends JFrame{
                     || a.equals("BEGINNING_DATE")
                     || a.equals("END_DATE"))
                 {
-                    System.out.println("View");
+                    //System.out.println("View");
                     tmp[i-1] = resultSet.getString(i).substring(0, resultSet.getString(i).length()-11);
                 }
                 else
@@ -338,7 +349,7 @@ public class BDView extends JFrame{
         }
         JScrollPane scrollPane = new JScrollPane(dataTable);
         dataTable.setModel(tableModel);
-        dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        //dataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
         tablePanel.validate();
         tablePanel.revalidate();
@@ -354,7 +365,6 @@ public class BDView extends JFrame{
             else
                 rowValues.add(dataTable.getValueAt(dataTable.getSelectedRow(), i).toString());
         }
-        System.out.println(rowValues);
         return rowValues;
     }
 
@@ -364,7 +374,6 @@ public class BDView extends JFrame{
         for(int i = 0; i < columnNumber; i++){
             columnNames.add(dataTable.getColumnName(i));
         }
-        System.out.println(columnNames);
         return columnNames;
     }
 

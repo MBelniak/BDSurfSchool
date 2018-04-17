@@ -133,6 +133,13 @@ public class BDController {
                 view.DisplayErrorMessage(model.getError());
             else
                 view.CloseDialogWindow();
+            //reload results
+            model.GetSelectedTable(entity, attributes);
+            try {
+                view.ShowResultTable(getAttributes(),model.getResult(),entity);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
     }
     class CancelButtonListener extends ButtonListener
@@ -152,6 +159,7 @@ public class BDController {
                 view.DisplayErrorMessage("Failed to remove the record. Cause: \n" + model.getError());
             else {
                 view.CloseDialogWindow();
+                //reload results
                 model.GetSelectedTable(entity, attributes);
                 try {
                     view.ShowResultTable(getAttributes(),model.getResult(),entity);
@@ -165,9 +173,6 @@ public class BDController {
     class ShowButtonListener extends ButtonListener{
         @Override
         public void actionPerformed(ActionEvent e){
-           // System.out.println(entity);
-
-            //System.out.println(attributes);
             model.GetSelectedTable(entity, attributes);
             try {
                 view.ShowResultTable(getAttributes(),model.getResult(),entity);
@@ -192,7 +197,7 @@ public class BDController {
         @Override
         public void actionPerformed(ActionEvent e){
             if(view.getDataTable().getSelectedRow()>0){
-                System.out.println("DELETE" + view.getRowValues() + " " + view.getTableName());
+                //System.out.println("DELETE" + view.getRowValues() + " " + view.getTableName());
                 view.OpenRemoveWindow(new ConfirmButtonListener(), new CancelButtonListener());
             }
         }
@@ -201,20 +206,74 @@ public class BDController {
     class TableListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e){
-            if( view.getDataTable().getSelectedRow() > 0 ){
-                //view.getColumnNames();
-                //view.getRowValues();
-                System.out.println("single click");
-            }
+
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
             if(e.getClickCount() ==2 && !e.isConsumed() ){
                 e.consume();
-                System.out.println("double click");
-                view.getColumnNames();
-                view.getRowValues();
+                String tableName = view.getTableName();
+                if(tableName.equals("Employees")){
+                    model.GetMoreEmployeeInfo(view.getRowValues().get(0));
+                    try {
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else if(tableName.equals("Schools"))
+                {
+                    model.GetMoreSchoolInfo(view.getRowValues().get(0));
+                    try {
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else if(tableName.equals("Equipment")){
+                    model.GetMoreEquipmentInfo(view.getRowValues().get(0));
+                    try {
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else if(tableName.equals("Clients")){
+                    model.GetMoreClientInfo(view.getRowValues().get(0));
+                    try {
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else if(tableName.equals("Courses_clients")){
+                    String[] values = new String[4];
+                    values[0]= view.getRowValues().get(0);
+                    values[1]= view.getRowValues().get(1);
+                    values[2]= view.getRowValues().get(2);
+                    values[3]= view.getRowValues().get(3);
+                    model.GetMoreCourseClientInfo(values);
+                    try {
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else if(tableName.equals("Courses")){
+                    String[] values = new String[3];
+                    values[0]= view.getRowValues().get(0);
+                    values[1]= view.getRowValues().get(1);
+                    values[2]= view.getRowValues().get(2);
+                    model.GetMoreCourseInfo(values);
+                    try {
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                //view.getColumnNames();
+                //view.getRowValues();
             }
         }
 

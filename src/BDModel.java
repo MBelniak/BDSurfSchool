@@ -1,4 +1,5 @@
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BDModel {
@@ -7,6 +8,7 @@ public class BDModel {
     private ResultSet result;
     private ResultSet subResult1;
     private ResultSet subResult2;
+    private ArrayList<String> extandedColumnNames;
     private String error;
 
     BDModel()
@@ -168,9 +170,14 @@ public class BDModel {
                 "INNER JOIN EMPLOYEES " +
                 "ON A.PESEL = EMPLOYEES.SUPERVISOR_PESEL " +
                 "WHERE A.PESEL = " + identifier;
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("COURSES.BEGINNING_DATE");
+        columnNames.add("COURSES.END_DATE");
+        extandedColumnNames = columnNames;
+
         try {
             subResult1 = MyBase.DoQuery(query1);
-            subResult2 = MyBase.DoQuery(query2);
+            //subResult2 = MyBase.DoQuery(query2);
         }
         catch (SQLException e) {
             error = e.getMessage();
@@ -189,21 +196,33 @@ public class BDModel {
                 "FROM SCHOOLS INNER JOIN EQUIPMENT " +
                 "ON SCHOOLS.SCHOOL_ID = EQUIPMENT.SCHOOL_ID " +
                 "WHERE SCHOOLS.SCHOOL_ID = " + identifier;
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("EMPLOYEES.FIRSTNAME");
+        columnNames.add("EMPLOYEES.SECONDNAME");
+        extandedColumnNames = columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
-            subResult2 = MyBase.DoQuery(query2);
-
+           // subResult2 = MyBase.DoQuery(query2);
         }
         catch (SQLException e) {
             error = e.getMessage();
             return e.getErrorCode();
         }
+
         return 0;
     }
     int GetMoreEquipmentInfo(String identifier)
     {
         String query = "SELECT * FROM EQUIPMENT " +
                 "WHERE ID = " + identifier;
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("equipment_id");
+        columnNames.add("productionyear");
+        columnNames.add("school_id");
+        columnNames.add("client_PESEL");
+        extandedColumnNames = columnNames;
+        /*System.out.println(query);
+        System.out.println(columnNames);*/
         try {
             subResult1 = MyBase.DoQuery(query);
         }
@@ -215,17 +234,23 @@ public class BDModel {
     }
     int GetMoreClientInfo(String identifier)
     {
-        String query1 = "SELECT EQUIPMENT.ID " +
+        String query2 = "SELECT EQUIPMENT.ID " +
                 "FROM CLIENTS INNER JOIN EQUIPMENT " +
                 "ON CLIENTS.CLIENT_PESEL = EQUIPMENT.CLIENT_PESEL " +
                 "WHERE CLIENTS.CLIENT_PESEL = " + identifier;
-        String query2 = "SELECT COURSES_CLIENTS.* " +
+        String query1 = "SELECT COURSES_CLIENTS.* " +
                 "FROM CLIENTS INNER JOIN COURSES_CLIENTS " +
                 "ON CLIENTS.CLIENT_PESEL = COURSES_CLIENTS.CLIENT_PESEL " +
                 "WHERE CLIENTS.CLIENT_PESEL = " + identifier;
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("COURSES_CLIENTS.course_beginning_date");
+        columnNames.add("COURSES_CLIENTS.course_end_date");
+        columnNames.add("COURSES_CLIENTS.course_employee_PESEL");
+        columnNames.add("COURSES_CLIENTS.client_PESEL");
+        extandedColumnNames=columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
-            subResult2 = MyBase.DoQuery(query2);
+            //subResult2 = MyBase.DoQuery(query2);
         }
         catch (SQLException e) {
             error = e.getMessage();
@@ -240,6 +265,12 @@ public class BDModel {
                 "COURSE_END_DATE = " + identifier[1] + " AND " +
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
                 "CLIENT_PESEL = " + identifier[3];
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("course_beginning_date");
+        columnNames.add("course_end_date");
+        columnNames.add("course_employee_PESEL");
+        columnNames.add("client_PESEL");
+        extandedColumnNames = columnNames;
         try {
             subResult1 = MyBase.DoQuery(query);
         }
@@ -259,6 +290,9 @@ public class BDModel {
                 "WHERE COURSE_BEGINNING_DATE = " + identifier[0] + " AND " +
                 "COURSE_END_DATE = " + identifier[1] + " AND " +
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2];
+        ArrayList<String> columnNames = new ArrayList<>();
+
+        extandedColumnNames = columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
         }
@@ -283,5 +317,9 @@ public class BDModel {
 
     public String getError() {
         return error;
+    }
+
+    public ArrayList<String> getExtandedColumnNames() {
+        return extandedColumnNames;
     }
 }
