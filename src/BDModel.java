@@ -89,7 +89,7 @@ public class BDModel {
             return e.getErrorCode();
         }
         catch (SQLException e) {
-            error = e.getMessage();
+            error = "Napotkano blad. Przyczyna: \n" + e.getMessage();
             return e.getErrorCode();
         }
         return 0;

@@ -25,7 +25,7 @@ public class AddWindow extends JDialog {
         new JLabel("Beginning_Date"),           //16
         new JLabel("End_Date"),                 //17
         new JLabel("Employee_PESEL")};          //18
-    private ArrayList<String> columns;
+    private ArrayList<String> columns = new ArrayList<String>();
     private ArrayList<JTextField> textFields = new ArrayList<JTextField>();
     private JComboBox<String> JobType = new JComboBox<>();
     private String header;
@@ -44,6 +44,9 @@ public class AddWindow extends JDialog {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width/2 - this.getSize().width/2 , dim.height/2 - this.getSize().height/2);
 
+        GridLayout myLayout = new GridLayout(0,2);
+        panel.setLayout(myLayout);
+
         buttonPanel.add(EnterButton);
         buttonPanel.add(cancelButton);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -57,10 +60,13 @@ public class AddWindow extends JDialog {
         JobType.addItem("Supervisor");
 
         if(header.equals("Employees")) {
-            for(int i = 0; i<8; i++)
+            for(int i = 0; i<7; i++)
             {
-                textFields.add(new JTextField(30));
+                textFields.add(new JTextField(25));
+                columns.add(labels[i].getText());
             }
+            columns.add(labels[7].getText());
+
             panel.add(labels[0]);
             panel.add(textFields.get(0));
             panel.add(labels[1]);
@@ -71,98 +77,113 @@ public class AddWindow extends JDialog {
             panel.add(textFields.get(3));
             panel.add(labels[4]);
             panel.add(JobType);
-            panel.add(new JLabel("                                                        "));
             for(int i = 5; i<8;i++)
             {
                 panel.add(labels[i]);
                 panel.add(textFields.get(i-1));
             }
             this.add(panel, BorderLayout.CENTER);
-//                for(int i=0; i<8; i++)
-//                {
-//                    labelPanel.add(labels[i]);
-//                }
-//                textFieldPanel.add(new JTextField(11));
-//                textFieldPanel.add(new JTextField(20));
-//                textFieldPanel.add(new JTextField(30));
-//                textFieldPanel.add(new JTextField(60));
-//                textFieldPanel.add(JobType);
-//                textFieldPanel.add(new JTextField(8));
-//                textFieldPanel.add(new JTextField(4));
-//                textFieldPanel.add(new JTextField(11));
-//
-//                this.add(labelPanel, BorderLayout.NORTH);
-//                this.add(textFieldPanel, BorderLayout.SOUTH);
-//            }
-//            else if(header.equals("Schools"))
-//            {
-//                labelPanel.add(labels[6]);
-//                labelPanel.add(labels[3]);
-//                labelPanel.add(labels[8]);
-//                labelPanel.add(labels[9]);
-//
-//                textFieldPanel.add(new JTextField(4));
-//                textFieldPanel.add(new JTextField(60));
-//                textFieldPanel.add(new JTextField(11));
-//                textFieldPanel.add(new JTextField(30));
-//                this.add(labelPanel, BorderLayout.NORTH);
-//                this.add(textFieldPanel, BorderLayout.SOUTH);
-//            }
-//            else if(header.equals("Equipment"))
-//            {
-//                labelPanel.add(labels[10]);
-//                labelPanel.add(labels[11]);
-//                labelPanel.add(labels[6]);
-//                labelPanel.add(labels[12]);
-//
-//                textFieldPanel.add(new JTextField(4));
-//                textFieldPanel.add(new JTextField(4));
-//                textFieldPanel.add(new JTextField(4));
-//                textFieldPanel.add(new JTextField(11));
-//                this.add(labelPanel, BorderLayout.NORTH);
-//                this.add(textFieldPanel, BorderLayout.SOUTH);
-//            }
-//            else if(header.equals("Clients"))
-//            {
-//                for(int i = 0; i<4; i++)
-//                {
-//                    labelPanel.add(labels[i]);
-//                }
-//                textFieldPanel.add(new JTextField(11));
-//                textFieldPanel.add(new JTextField(20));
-//                textFieldPanel.add(new JTextField(30));
-//                textFieldPanel.add(new JTextField(60));
-//                this.add(labelPanel, BorderLayout.NORTH);
-//                this.add(textFieldPanel, BorderLayout.SOUTH);
-//            }
-//            else if(header.equals("Courses_clients"))
-//            {
-//                labelPanel.add(labels[13]);
-//                labelPanel.add(labels[14]);
-//                labelPanel.add(labels[15]);
-//                labelPanel.add(labels[12]);
-//
-//                textFieldPanel.add(new JTextField(8));
-//                textFieldPanel.add(new JTextField(8));
-//                textFieldPanel.add(new JTextField(11));
-//                textFieldPanel.add(new JTextField(11));
-//                this.add(labelPanel, BorderLayout.NORTH);
-//                this.add(textFieldPanel, BorderLayout.SOUTH);
-//            }
-//            else if(header.equals("Courses"))
-//            {
-//                labelPanel.add(labels[16]);
-//                labelPanel.add(labels[17]);
-//                labelPanel.add(labels[18]);
-//
-//                textFieldPanel.add(new JTextField(8));
-//                textFieldPanel.add(new JTextField(8));
-//                textFieldPanel.add(new JTextField(11));
-//                this.add(labelPanel, BorderLayout.NORTH);
-//                this.add(textFieldPanel, BorderLayout.SOUTH);
-//            }
-        //    this.setVisible(true);
+
+            }
+            else if(header.equals("Schools"))
+            {
+                for(int i = 0; i<4; i++)
+                {
+                    textFields.add(new JTextField(25));
+                }
+                columns.add(labels[6].getText());
+                columns.add(labels[3].getText());
+                columns.add(labels[8].getText());
+                columns.add(labels[9].getText());
+
+                panel.add(labels[6]);
+                panel.add(textFields.get(0));
+                panel.add(labels[3]);
+                panel.add(textFields.get(1));
+                panel.add(labels[8]);
+                panel.add(textFields.get(2));
+                panel.add(labels[9]);
+                panel.add(textFields.get(3));
+
+
+                this.add(panel, BorderLayout.CENTER);
+            }
+        else if(header.equals("Equipment")) {
+            for (int i = 0; i < 4; i++) {
+                textFields.add(new JTextField(25));
+            }
+            columns.add(labels[10].getText());
+            columns.add(labels[11].getText());
+            columns.add(labels[6].getText());
+            columns.add(labels[12].getText());
+
+            panel.add(labels[10]);
+            panel.add(textFields.get(0));
+            panel.add(labels[11]);
+            panel.add(textFields.get(1));
+            panel.add(labels[6]);
+            panel.add(textFields.get(2));
+            panel.add(labels[12]);
+            panel.add(textFields.get(3));
+
+            this.add(panel, BorderLayout.CENTER);
         }
+        else if(header.equals("Clients")) {
+            for (int i = 0; i < 4; i++) {
+                textFields.add(new JTextField(25));
+                columns.add(labels[i].getText());
+            }
+
+            for (int i = 0; i < 4; i++) {
+                panel.add(labels[i]);
+                panel.add(textFields.get(i));
+            }
+
+
+            this.add(panel, BorderLayout.CENTER);
+        }
+        else if(header.equals("Courses_clients"))
+            {
+                for(int i = 0; i<4; i++)
+                {
+                    textFields.add(new JTextField(25));
+                }
+                columns.add(labels[13].getText());
+                columns.add(labels[14].getText());
+                columns.add(labels[15].getText());
+                columns.add(labels[12].getText());
+
+                panel.add(labels[13]);
+                panel.add(textFields.get(0));
+                panel.add(labels[14]);
+                panel.add(textFields.get(1));
+                panel.add(labels[15]);
+                panel.add(textFields.get(2));
+                panel.add(labels[12]);
+                panel.add(textFields.get(3));
+
+                this.add(panel, BorderLayout.CENTER);
+            }
+            else if(header.equals("Courses"))
+            {
+                for(int i = 0; i<3; i++)
+                {
+                    textFields.add(new JTextField(25));
+                }
+                columns.add(labels[16].getText());
+                columns.add(labels[17].getText());
+                columns.add(labels[18].getText());
+
+                panel.add(labels[16]);
+                panel.add(textFields.get(0));
+                panel.add(labels[17]);
+                panel.add(textFields.get(1));
+                panel.add(labels[18]);
+                panel.add(textFields.get(2));
+
+                this.add(panel, BorderLayout.CENTER);
+            }
+
     }
     ArrayList<JTextField> getTextFields()
     {

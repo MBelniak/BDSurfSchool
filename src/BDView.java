@@ -207,7 +207,7 @@ public class BDView extends JFrame{
             for(int i = 0; i<4; i++)
                 result.add(addWindow.getTextFields().get(i).getText());
             result.add(addWindow.getJobType());
-            for(int i =4; i<8;i++)
+            for(int i =4; i<7;i++)
             {
                 result.add(addWindow.getTextFields().get(i).getText());
             }
