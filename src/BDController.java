@@ -175,6 +175,7 @@ public class BDController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("removing row");
+            view.CloseDialogWindow();
             //todo model remove ,refresh Jtable
         }
     }

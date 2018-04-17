@@ -194,16 +194,20 @@ public class BDView extends JFrame{
     void OpenRemoveWindow(ActionListener a, ActionListener b){
         removeWindow = new RemoveWindow(this, getTableName());
         removeWindow.AddConfirmButtonListener(a);
-        removeWindow.AddCancelButtonListener(b);
+        removeWindow.AddCancelListener(b);
         removeWindow.setVisible(true);
     }
     void CloseDialogWindow()
     {
 
         if(addWindow.isVisible())
+        {
             addWindow.setVisible(false);
+        }
         else if(removeWindow.isVisible())
+        {
             removeWindow.setVisible(false);
+        }
     }
     ArrayList<String> getAddWindowLabels()
     {

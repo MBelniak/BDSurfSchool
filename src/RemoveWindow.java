@@ -38,8 +38,7 @@ public class RemoveWindow extends JDialog{
     {
         confirmButton.addActionListener(a);
     }
-    void AddCancelButtonListener(ActionListener a)
+    void AddCancelListener (ActionListener a)
     {
         cancelButton.addActionListener(a);
-    }
-}
+    }}
