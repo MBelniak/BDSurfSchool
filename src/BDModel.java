@@ -1,5 +1,3 @@
-
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -30,10 +28,6 @@ public class BDModel {
             return 1;
         }
         return 0;
-    }
-
-    public boolean TestConnection(){
-        return MyBase.isConnected();
     }
 
     int CloseConnection()
@@ -98,26 +92,30 @@ public class BDModel {
 
     int DeleteFromTable(String Entity, ArrayList<String> Columns, ArrayList<String> Values)
     {
-        System.out.println("Tutaj");
-        String query = "DELETE FROM " + Entity + " WHERE ";
-        query += Columns.get(0) + " = " + "'" + Values.get(0) + "'";
-        for (int i=1; i<Columns.size() && i<Values.size(); i++)
-        {
-            query += " AND " + Columns.get(i);
-            if(Values.get(i).equals(""))
-                query += " IS NULL";
-            else
-                query += " = " + "'" + Values.get(i) + "'";
+        String query = "DELETE FROM " + Entity + " WHERE "
+                + Columns.get(0) + " = " + "'" + Values.get(0) + "'";
+        switch (Entity) {
+            case "Courses" :
+            {
+                for (int i=1; i<3 && i<Values.size(); i++)
+                {
+                    query += " AND " + Columns.get(i) + " = " + "'" + Values.get(i) + "'";
+                }
+            }
+            case "Courses_clients" :
+            {
+                for (int i=1; i<4 && i<Values.size(); i++)
+                {
+                    query += " AND " + Columns.get(i) + " = " + "'" + Values.get(i) + "'";
+                }
+            }
         }
         try {
             System.out.println(query);
             MyBase.DoQuery(query);
-            System.out.println("Try");
             MyBase.getcon().commit();
         }
         catch (SQLException e) {
-
-
             error = e.getMessage();
             return e.getErrorCode();
         }

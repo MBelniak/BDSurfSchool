@@ -6,12 +6,12 @@ public class RemoveWindow extends JDialog{
     private static int HEIGHT = 100;
     private static int WIDTH = 450;
     private JLabel label = new JLabel();
-    private JButton confirmButton = new JButton("Yes");
-    private JButton cancelButton = new JButton("Cancel");
+    private JButton confirmButton = new JButton("Tak");
+    private JButton cancelButton = new JButton("Anuluj");
     private String header;
 
     RemoveWindow(JFrame owner, String header){
-        super(owner, "Remove Window", true);
+        super(owner, "Usun rekord", true);
 
         this.header = header;
         JPanel labelPanel = new JPanel();
@@ -23,7 +23,7 @@ public class RemoveWindow extends JDialog{
         GridLayout removeLayout = new GridLayout(1,2);
         buttonPanel.setLayout(removeLayout);
 
-        label.setText("Do you really want to remove selected record from " + header + " table?");
+        label.setText("Czy na pewno chcesz usunac ten rekord z tabeli " + header + " ?");
 
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);

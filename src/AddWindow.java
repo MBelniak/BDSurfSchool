@@ -30,11 +30,11 @@ public class AddWindow extends JDialog {
     private JComboBox<String> JobType = new JComboBox<>();
     private String header;
 
-    private JButton EnterButton = new JButton("Enter");
-    private JButton cancelButton = new JButton("Cancel");
+    private JButton EnterButton = new JButton("Wprowadz");
+    private JButton cancelButton = new JButton("Anuluj");
 
     AddWindow(JFrame owner , String header){
-        super(owner, "Add Window", true);
+        super(owner, "Dodaj rekord", true);
 
         this.header = header;
         JPanel panel = new JPanel();

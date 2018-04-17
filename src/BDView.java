@@ -25,7 +25,6 @@ public class BDView extends JFrame{
     // elementy właściwego view
     private JComboBox<String> tableHeader;
     private JTable dataTable = new JTable();
-    //private JScrollPane scrollPane = new JScrollPane(dataTable);
 
     private JCheckBox pesel = new JCheckBox("PESEL");
     private JCheckBox firstName = new JCheckBox("firstname");
@@ -53,12 +52,13 @@ public class BDView extends JFrame{
 
     private JButton addButton = new JButton("+");
     private JButton removeButton = new JButton("-");
-    private JButton updateButton = new JButton("Update");
-    private JButton showButton = new JButton("Show");
+    private JButton updateButton = new JButton("Zmien rekord");
+    private JButton showButton = new JButton("Pokaz tabele");
 
 
 
     BDView(){
+            setTitle("SurfSchoolsDatabase");
             createLoginDialog();
             tablePanel = new JPanel();
             comboPanel = new JPanel();
@@ -71,7 +71,7 @@ public class BDView extends JFrame{
 
 
             tableHeader = new JComboBox<>();
-            tableHeader.addItem("None");
+            tableHeader.addItem("-");
             tableHeader.addItem("Employees");
             tableHeader.addItem("Schools");
             tableHeader.addItem("Courses");
@@ -244,6 +244,10 @@ public class BDView extends JFrame{
     {
         loginDialog.addConnectListener(a);
     }
+    void AddQuitListener(ActionListener a)
+    {
+        loginDialog.addQuitListener(a);
+    }
 
     void AddComboListener(ActionListener a)
     {
@@ -317,7 +321,18 @@ public class BDView extends JFrame{
 
             for(int i = 1; i <= rsmd.getColumnCount(); i++)
             {
-                tmp[i-1] = resultSet.getString(i);
+                String a = rsmd.getColumnName(i);
+                if(a.equals("COURSE_BEGINNING_DATE")
+                    || a.equals("COURSE_END_DATE")
+                    || a.equals("DATEOFBIRTH")
+                    || a.equals("BEGINNING_DATE")
+                    || a.equals("END_DATE"))
+                {
+                    System.out.println("View");
+                    tmp[i-1] = resultSet.getString(i).substring(0, resultSet.getString(i).length()-11);
+                }
+                else
+                    tmp[i-1] = resultSet.getString(i);
             }
             tableModel.addRow(tmp);
         }

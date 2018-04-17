@@ -13,6 +13,7 @@ public class BDController {
         this.model = model;
         this.view = view;
         this.view.AddConnectListener(new LoginListener());
+        this.view.AddQuitListener(new QuitListener());
         this.view.OpenLoginDialog();
 //        this.view.AddSetListener(new LoginListener());
         this.view.AddWindowListener(new WindowListener());
@@ -41,15 +42,13 @@ public class BDController {
             }
         }
     }
-    //    class ShowATableListener implements ActionListener{
-//            model.MakeConnection(loginWindow.GetUsername(), loginWindow.GetPassword());
-//
-//            if(model.TestConnection()){
-//                loginWindow.setVisible(false);
-//            }
-////           System.out.println(model.error);
-//        }
-//    }
+    class QuitListener extends ButtonListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.CloseLoginDialog();
+            System.exit(0);
+        }
+    }
     class ComboListener extends ButtonListener{
         @Override
         public void actionPerformed(ActionEvent e)
