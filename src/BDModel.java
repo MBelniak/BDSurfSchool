@@ -213,13 +213,17 @@ public class BDModel {
     }
     int GetMoreEquipmentInfo(String identifier)
     {
-        String query = "SELECT * FROM EQUIPMENT " +
-                "WHERE ID = " + identifier;
+        /*String query = "SELECT * FROM EQUIPMENT " +
+                "WHERE ID = " + identifier;*/
+        String query = "SELECT EQUIPMENT.EQUIPMENT_ID, EQUIPMENT.PRODUCTIONYEAR ,SCHOOLS.SCHOOL_ID, SCHOOLS.ADDRESS " +
+                "FROM SCHOOLS INNER JOIN EQUIPMENT " +
+                "ON SCHOOLS.SCHOOL_ID = EQUIPMENT.SCHOOL_ID " +
+                "WHERE EQUIPMENT.EQUIPMENT_ID = " + identifier;
         ArrayList<String> columnNames = new ArrayList<>();
-        columnNames.add("equipment_id");
-        columnNames.add("productionyear");
-        columnNames.add("school_id");
-        columnNames.add("client_PESEL");
+        columnNames.add("EQUIPMENT.EQUIPMENT_ID");
+        columnNames.add("EQUIPMENT.PRODUCTIONYEAR");
+        columnNames.add("SCHOOLS.SCHOOL_ID");
+        columnNames.add("SCHOOLS.ADDRESS");
         extandedColumnNames = columnNames;
         /*System.out.println(query);
         System.out.println(columnNames);*/
@@ -260,6 +264,11 @@ public class BDModel {
     }
     int GetMoreCourseClientInfo(String[] identifier)
     {
+        /*String query = "SELECT * FROM COURSES_CLIENTS " +
+                "WHERE COURSE_BEGINNING_DATE = " + identifier[0] + " AND " +
+                "COURSE_END_DATE = " + identifier[1] + " AND " +
+                "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
+                "CLIENT_PESEL = " + identifier[3];*/
         String query = "SELECT * FROM COURSES_CLIENTS " +
                 "WHERE COURSE_BEGINNING_DATE = " + identifier[0] + " AND " +
                 "COURSE_END_DATE = " + identifier[1] + " AND " +
