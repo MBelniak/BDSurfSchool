@@ -16,6 +16,7 @@ public class BDView extends JFrame{
 
     private BDLoginWindow loginDialog;
     private AddWindow addWindow;
+    private RemoveWindow removeWindow;
     private JPanel tablePanel;
     private JPanel comboPanel;
     private JPanel checkBoxPanel;
@@ -190,9 +191,19 @@ public class BDView extends JFrame{
         addWindow.AddCancelListener(b);
         addWindow.setVisible(true);
     }
-    void CloseAddWindow()
+    void OpenRemoveWindow(ActionListener a, ActionListener b){
+        removeWindow = new RemoveWindow(this, getTableName());
+        removeWindow.AddConfirmButtonListener(a);
+        removeWindow.AddCancelButtonListener(b);
+        removeWindow.setVisible(true);
+    }
+    void CloseDialogWindow()
     {
-        addWindow.setVisible(false);
+
+        if(addWindow.isVisible())
+            addWindow.setVisible(false);
+        else if(removeWindow.isVisible())
+            removeWindow.setVisible(false);
     }
     ArrayList<String> getAddWindowLabels()
     {
@@ -288,13 +299,13 @@ public class BDView extends JFrame{
         loginDialog.setVisible(true);
     }
 
-    void ShowResultTable(ArrayList<String> attributes, ResultSet resultSet) throws SQLException {
+    void ShowResultTable(ArrayList<String> attributes, ResultSet resultSet, String name) throws SQLException {
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
         String[] arrayOfAttributes = new String[attributes.size()];
 
         tablePanel.removeAll();
-
+        dataTable.setName(name);
         for(int i = 0 ; i < attributes.size(); i++){
             arrayOfAttributes[i] = attributes.get(i);
         }
@@ -327,7 +338,7 @@ public class BDView extends JFrame{
             else
                 rowValues.add(dataTable.getValueAt(dataTable.getSelectedRow(), i).toString());
         }
-       // System.out.println(rowValues);
+        System.out.println(rowValues);
         return rowValues;
     }
 
@@ -337,8 +348,12 @@ public class BDView extends JFrame{
         for(int i = 0; i < columnNumber; i++){
             columnNames.add(dataTable.getColumnName(i));
         }
-        //System.out.println(columnNames);
+        System.out.println(columnNames);
         return columnNames;
+    }
+
+    String getTableName(){
+        return dataTable.getName();
     }
 
     JTable getDataTable(){

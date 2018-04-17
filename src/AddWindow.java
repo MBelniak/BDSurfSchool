@@ -34,7 +34,7 @@ public class AddWindow extends JDialog {
     private JButton cancelButton = new JButton("Cancel");
 
     AddWindow(JFrame owner , String header){
-        super(owner, "Login Window", true);
+        super(owner, "Add Window", true);
 
         this.header = header;
         JPanel panel = new JPanel();

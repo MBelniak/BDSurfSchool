@@ -158,7 +158,7 @@ public class BDController {
             }
             else
             {
-                view.CloseAddWindow();
+                view.CloseDialogWindow();
             }
         }
     }
@@ -166,7 +166,16 @@ public class BDController {
     {
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.CloseAddWindow();
+            view.CloseDialogWindow();
+        }
+    }
+    class ConfirmButtonListener extends ButtonListener
+    {
+        //Confirm button used in removeWindow
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("removing row");
+            //todo model remove ,refresh Jtable
         }
     }
     class ShowButtonListener extends ButtonListener{
@@ -177,7 +186,7 @@ public class BDController {
             //System.out.println(attributes);
             model.GetSelectedTable(entity, attributes);
             try {
-                view.ShowResultTable(getAttributes(),model.getResult());
+                view.ShowResultTable(getAttributes(),model.getResult(),entity);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -198,8 +207,10 @@ public class BDController {
 
         @Override
         public void actionPerformed(ActionEvent e){
-            if(view.getDataTable().getSelectedRow()>0)
-                System.out.println("DELETE" + view.getRowValues());
+            if(view.getDataTable().getSelectedRow()>0){
+                System.out.println("DELETE" + view.getRowValues() + " " + view.getTableName());
+                view.OpenRemoveWindow(new ConfirmButtonListener(), new CancelButtonListener());
+            }
         }
     }
 
@@ -207,17 +218,20 @@ public class BDController {
         @Override
         public void mouseClicked(MouseEvent e){
             if( view.getDataTable().getSelectedRow() > 0 ){
-                view.getColumnNames();
-                view.getRowValues();
-            }
-            else if(e.getClickCount() >=2 && view.getDataTable().getSelectedRow() > 0){
-                System.out.println("double click");
+                //view.getColumnNames();
+                //view.getRowValues();
+                System.out.println("single click");
             }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            //view.getDataTable().getSelectedRow();
+            if(e.getClickCount() ==2 && !e.isConsumed() ){
+                e.consume();
+                System.out.println("double click");
+                view.getColumnNames();
+                view.getRowValues();
+            }
         }
 
         @Override
