@@ -85,7 +85,7 @@ public class BDModel {
             if(e.getErrorCode()==1)
                 error = "W bazie jest juz wpis z taka wartoscia pola unikatowego!";
             else
-                error = e.getMessage();
+                error = "Napotkano blad. Przyczyna: \n" + e.getMessage();
             return e.getErrorCode();
         }
         catch (SQLException e) {

@@ -79,7 +79,8 @@ public class BDView extends JFrame{
             tableHeader.addItem("Clients");
             tableHeader.addItem("Equipment");
 
-
+            GridLayout buttonsLayout = new GridLayout(0,1);
+            buttonPanel.setLayout(buttonsLayout);
             buttonPanel.add(addButton);
             buttonPanel.add(removeButton);
             buttonPanel.add(updateButton);

@@ -40,7 +40,7 @@ public class AddWindow extends JDialog {
         JPanel panel = new JPanel();
         JPanel buttonPanel = new JPanel();
         this.setSize(WIDTH, HEIGHT);
-        setUndecorated(true);
+        setUndecorated(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width/2 - this.getSize().width/2 , dim.height/2 - this.getSize().height/2);
 
@@ -144,9 +144,13 @@ public class AddWindow extends JDialog {
         }
         else if(header.equals("Courses_clients"))
             {
-                for(int i = 0; i<4; i++)
+                for(int i = 0; i<2; i++)
                 {
-                    textFields.add(new JTextField(25));
+                    textFields.add(new JTextField("RRRRMMDD", 25));
+                }
+                for(int i = 0; i<2; i++)
+                {
+                    textFields.add(new JTextField( 25));
                 }
                 columns.add(labels[13].getText());
                 columns.add(labels[14].getText());
@@ -166,10 +170,11 @@ public class AddWindow extends JDialog {
             }
             else if(header.equals("Courses"))
             {
-                for(int i = 0; i<3; i++)
+                for(int i = 0; i<2; i++)
                 {
-                    textFields.add(new JTextField(25));
+                    textFields.add(new JTextField("RRRRMMDD",25));
                 }
+                textFields.add(new JTextField(25));
                 columns.add(labels[16].getText());
                 columns.add(labels[17].getText());
                 columns.add(labels[18].getText());
