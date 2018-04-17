@@ -100,28 +100,6 @@ public class BDController {
             view.OpenAddWindow(new EnterButtonListener(), new CancelButtonListener());
         }
     }
-    //        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            //entity = menu.getEntity();
-//            if ( entity=="Courses" || entity=="Courses_Clients")
-//            {
-//                if(model.SelectWholeTable(entity)!=0)
-//                    //menu.DisplayErrorMessage(model.error);
-//            }
-//            else
-//            {
-//                //attributes.add(getBoxLabel(0));
-//                //petla dodajaca nazwy tych boxow, ktore zostaly wybrane
-//                if(model.GetSelectedTable(entity, attributes)!=0)
-//                    //menu.DisplayErrorMessage(model.error);
-//
-//            catch (SQLException e1) {
-//
-//               System.out.println(e1);
-//            }
-//            //menu.openTable(model.result);
-//
-//        }
     class CheckBoxListener extends ButtonListener{
 
         @Override
@@ -153,13 +131,9 @@ public class BDController {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(model.InsertIntoTable(view.getTableHeaders(), view.getAddWindowLabels(), view.getAddWindowValues())!=0)
-            {
                 view.DisplayErrorMessage(model.getError());
-            }
             else
-            {
                 view.CloseDialogWindow();
-            }
         }
     }
     class CancelButtonListener extends ButtonListener
@@ -175,8 +149,18 @@ public class BDController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("removing row");
-            view.CloseDialogWindow();
-            //todo model remove ,refresh Jtable
+            if(model.DeleteFromTable(view.getTableName(), view.getColumnNames(), view.getRowValues())!=0)
+                view.DisplayErrorMessage("Failed to remove the record. Cause: \n" + model.getError());
+            else {
+                view.CloseDialogWindow();
+                model.GetSelectedTable(entity, attributes);
+                try {
+                    view.ShowResultTable(getAttributes(),model.getResult(),entity);
+                } catch (SQLException e1) {
+                    view.DisplayErrorMessage("Failed to display a table: " + e1.getMessage());
+                }
+            }
+
         }
     }
     class ShowButtonListener extends ButtonListener{

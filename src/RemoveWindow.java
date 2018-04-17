@@ -3,10 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class RemoveWindow extends JDialog{
-    private static int HEIGHT = 300;
-    private static int WIDTH = 400;
+    private static int HEIGHT = 100;
+    private static int WIDTH = 450;
     private JLabel label = new JLabel();
-    private JButton confirmButton = new JButton("Confirm");
+    private JButton confirmButton = new JButton("Yes");
     private JButton cancelButton = new JButton("Cancel");
     private String header;
 
@@ -23,8 +23,7 @@ public class RemoveWindow extends JDialog{
         GridLayout removeLayout = new GridLayout(1,2);
         buttonPanel.setLayout(removeLayout);
 
-        label.setText(header);//change to "Do you want to delete FROM "tableheader" record
-        //with data ....
+        label.setText("Do you really want to remove selected record from " + header + " table?");
 
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);

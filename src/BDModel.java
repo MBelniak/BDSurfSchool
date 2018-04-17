@@ -1,4 +1,5 @@
 
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -97,18 +98,33 @@ public class BDModel {
 
     int DeleteFromTable(String Entity, ArrayList<String> Columns, ArrayList<String> Values)
     {
-        String query = "DELETE FROM  " + Entity + " WHERE ";
+        System.out.println("Tutaj");
+        String query = "DELETE FROM " + Entity + " WHERE ";
         query += Columns.get(0) + " = " + "'" + Values.get(0) + "'";
         for (int i=1; i<Columns.size() && i<Values.size(); i++)
         {
-            query += " AND " + Columns.get(i) + " = " + "'" + Values.get(i) + "'";
+            query += " AND " + Columns.get(i);
+            if(Values.get(i).equals(""))
+                query += " IS NULL";
+            else
+                query += " = " + "'" + Values.get(i) + "'";
         }
         try {
+            System.out.println(query);
             MyBase.DoQuery(query);
+            System.out.println("Try");
+            MyBase.getcon().commit();
         }
         catch (SQLException e) {
+
+
             error = e.getMessage();
             return e.getErrorCode();
+        }
+        catch (Exception c)
+        {
+            System.out.println(c.getMessage());
+            return 1;
         }
         return 0;
     }

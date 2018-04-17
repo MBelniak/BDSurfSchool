@@ -51,9 +51,6 @@ public class BDView extends JFrame{
     private JCheckBox courseEmpPesel = new JCheckBox("course_employee_PESEL");
     private JCheckBox courseClientPesel = new JCheckBox("client_PESEL");
 
-    private JCheckBox id = new JCheckBox("id");
-
-    private JList<JButton> buttonJList = new JList<>();
     private JButton addButton = new JButton("+");
     private JButton removeButton = new JButton("-");
     private JButton updateButton = new JButton("Update");
