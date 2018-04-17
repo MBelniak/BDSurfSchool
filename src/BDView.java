@@ -200,7 +200,7 @@ public class BDView extends JFrame{
     void CloseDialogWindow()
     {
 
-        if(addWindow.isVisible())
+        if( addWindow != null && addWindow.isVisible())
         {
             addWindow.setVisible(false);
         }
