@@ -15,7 +15,6 @@ public class BDController {
         this.view.AddConnectListener(new LoginListener());
         this.view.AddQuitListener(new QuitListener());
         this.view.OpenLoginDialog();
-//        this.view.AddSetListener(new LoginListener());
         this.view.AddWindowListener(new WindowListener());
         this.view.AddComboListener(new ComboListener());
         this.view.AddCheckBoxAlwaysSelectedListener(new CheckBoxAlwaysSelectedListener());

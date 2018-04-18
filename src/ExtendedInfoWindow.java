@@ -12,13 +12,13 @@ public class ExtendedInfoWindow extends JDialog {
     private static int WIDTH = 600;
 
     private JTable extendedTable = new JTable();
-    private JButton cancelButton = new JButton("Cancel");
+    private JButton cancelButton = new JButton("Ok");
     JPanel panel = new JPanel();
     JPanel buttonPanel = new JPanel();
 
     ExtendedInfoWindow(JFrame owner, String header)
     {
-        super(owner, header, true);
+        super(owner, header + " info", true);
 
         this.setSize(WIDTH, HEIGHT);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
