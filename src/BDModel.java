@@ -270,8 +270,8 @@ public class BDModel {
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
                 "CLIENT_PESEL = " + identifier[3];*/
         String query = "SELECT * FROM COURSES_CLIENTS " +
-                "WHERE COURSE_BEGINNING_DATE = " + identifier[0] + " AND " +
-                "COURSE_END_DATE = " + identifier[1] + " AND " +
+                "WHERE COURSE_BEGINNING_DATE = '" + identifier[0] + "' AND " +
+                "COURSE_END_DATE = '" + identifier[1] + "' AND " +
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
                 "CLIENT_PESEL = " + identifier[3];
         ArrayList<String> columnNames = new ArrayList<>();
@@ -296,8 +296,8 @@ public class BDModel {
                 "ON COURSES.BEGINNING_DATE = COURSES_CLIENTS.COURSE_BEGINNING_DATE AND " +
                 " COURSES.END_DATE = COURSES_CLIENTS.COURSE_END_DATE AND " +
                 " COURSES.EMPLOYEE_PESEL = COURSES_CLIENTS.COURSE_EMPLOYEE_PESEL " +
-                "WHERE COURSE_BEGINNING_DATE = " + identifier[0] + " AND " +
-                "COURSE_END_DATE = " + identifier[1] + " AND " +
+                "WHERE COURSE_BEGINNING_DATE = '" + identifier[0] + "' AND " +
+                "COURSE_END_DATE = '" + identifier[1] + "' AND " +
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2];
         ArrayList<String> columnNames = new ArrayList<>();
 
