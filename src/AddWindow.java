@@ -129,7 +129,9 @@ public class AddWindow extends JDialog {
             this.add(panel, BorderLayout.CENTER);
         }
         else if(header.equals("Clients")) {
-            for (int i = 0; i < 4; i++) {
+            textFields.add(new JTextField(25));
+            columns.add(labels[12].getText());
+            for (int i = 1; i < 4; i++) {
                 textFields.add(new JTextField(25));
                 columns.add(labels[i].getText());
             }

@@ -84,7 +84,7 @@ public class BDView extends JFrame{
             buttonPanel.setLayout(buttonsLayout);
             buttonPanel.add(addButton);
             buttonPanel.add(removeButton);
-            buttonPanel.add(updateButton);
+            //buttonPanel.add(updateButton);
             buttonPanel.add(showButton);
 
 
