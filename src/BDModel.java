@@ -8,7 +8,7 @@ public class BDModel {
     private ResultSet result;
     private ResultSet subResult1;
     private ResultSet subResult2;
-    private ArrayList<String> extandedColumnNames;
+    private ArrayList<String> extendedColumnNames;
     private String error;
 
     BDModel()
@@ -173,7 +173,7 @@ public class BDModel {
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("COURSES.BEGINNING_DATE");
         columnNames.add("COURSES.END_DATE");
-        extandedColumnNames = columnNames;
+        extendedColumnNames = columnNames;
 
         try {
             subResult1 = MyBase.DoQuery(query1);
@@ -199,7 +199,7 @@ public class BDModel {
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("EMPLOYEES.FIRSTNAME");
         columnNames.add("EMPLOYEES.SECONDNAME");
-        extandedColumnNames = columnNames;
+        extendedColumnNames = columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
            // subResult2 = MyBase.DoQuery(query2);
@@ -224,7 +224,7 @@ public class BDModel {
         columnNames.add("EQUIPMENT.PRODUCTIONYEAR");
         columnNames.add("SCHOOLS.SCHOOL_ID");
         columnNames.add("SCHOOLS.ADDRESS");
-        extandedColumnNames = columnNames;
+        extendedColumnNames = columnNames;
         /*System.out.println(query);
         System.out.println(columnNames);*/
         try {
@@ -251,7 +251,7 @@ public class BDModel {
         columnNames.add("COURSES_CLIENTS.course_end_date");
         columnNames.add("COURSES_CLIENTS.course_employee_PESEL");
         columnNames.add("COURSES_CLIENTS.client_PESEL");
-        extandedColumnNames=columnNames;
+        extendedColumnNames =columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
             //subResult2 = MyBase.DoQuery(query2);
@@ -265,21 +265,28 @@ public class BDModel {
     int GetMoreCourseClientInfo(String[] identifier)
     {
         /*String query = "SELECT * FROM COURSES_CLIENTS " +
-                "WHERE COURSE_BEGINNING_DATE = " + identifier[0] + " AND " +
-                "COURSE_END_DATE = " + identifier[1] + " AND " +
-                "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
-                "CLIENT_PESEL = " + identifier[3];*/
-        String query = "SELECT * FROM COURSES_CLIENTS " +
                 "WHERE COURSE_BEGINNING_DATE = '" + identifier[0] + "' AND " +
                 "COURSE_END_DATE = '" + identifier[1] + "' AND " +
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
-                "CLIENT_PESEL = " + identifier[3];
+                "CLIENT_PESEL = " + identifier[3];*/
+        String query = "SELECT COURSES_CLIENTS.COURSE_BEGINNING_DATE, COURSES_CLIENTS.COURSE_END_DATE, " +
+                "EMPLOYEES.FIRSTNAME, EMPLOYEES.SECONDNAME, COURSES_CLIENTS.COURSE_EMPLOYEE_PESEL, " +
+                "CLIENTS.FIRSTNAME, CLIENTS.SECONDNAME, COURSES_CLIENTS.CLIENT_PESEL FROM COURSES_CLIENTS, EMPLOYEES, CLIENTS " +
+                "WHERE COURSES_CLIENTS.COURSE_EMPLOYEE_PESEL = EMPLOYEES.PESEL AND " +
+                "COURSES_CLIENTS.CLIENT_PESEL = CLIENTS.CLIENT_PESEL AND COURSE_BEGINNING_DATE = '" + identifier[0] + "' AND " +
+                "COURSE_END_DATE = '" + identifier[1] + "' AND " +
+                "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
+                "COURSES_CLIENTS.CLIENT_PESEL = " + identifier[3];
         ArrayList<String> columnNames = new ArrayList<>();
-        columnNames.add("course_beginning_date");
-        columnNames.add("course_end_date");
+        columnNames.add("beginning_date");
+        columnNames.add("end_date");
+        columnNames.add("e.firstname");
+        columnNames.add("e.secondname");
         columnNames.add("course_employee_PESEL");
+        columnNames.add("c.firstname");
+        columnNames.add("c.secondname");
         columnNames.add("client_PESEL");
-        extandedColumnNames = columnNames;
+        extendedColumnNames = columnNames;
         try {
             subResult1 = MyBase.DoQuery(query);
         }
@@ -291,7 +298,7 @@ public class BDModel {
     }
     int GetMoreCourseInfo(String[] identifier)
     {
-        String query1 = "SELECT COURSES_CLIENTS.CLIENT_PESEL FROM COURSES " +
+        String query1 = "SELECT COURSES_CLIENTS.CLIENT_PESEL, COURSES.BEGINNING_DATE, COURSES.END_DATE, COURSES.EMPLOYEE_PESEL FROM COURSES " +
                 "LEFT JOIN COURSES_CLIENTS " +
                 "ON COURSES.BEGINNING_DATE = COURSES_CLIENTS.COURSE_BEGINNING_DATE AND " +
                 " COURSES.END_DATE = COURSES_CLIENTS.COURSE_END_DATE AND " +
@@ -300,8 +307,11 @@ public class BDModel {
                 "COURSE_END_DATE = '" + identifier[1] + "' AND " +
                 "COURSE_EMPLOYEE_PESEL = " + identifier[2];
         ArrayList<String> columnNames = new ArrayList<>();
-
-        extandedColumnNames = columnNames;
+        columnNames.add("CLIENT_PESEL");
+        columnNames.add("BEGINNING_DATE");
+        columnNames.add("END_DATE");
+        columnNames.add("EMPLOYEE_PESEL");
+        extendedColumnNames = columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
         }
@@ -328,7 +338,7 @@ public class BDModel {
         return error;
     }
 
-    public ArrayList<String> getExtandedColumnNames() {
-        return extandedColumnNames;
+    public ArrayList<String> getExtendedColumnNames() {
+        return extendedColumnNames;
     }
 }

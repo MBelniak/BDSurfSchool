@@ -216,7 +216,7 @@ public class BDController {
                 if(tableName.equals("Employees")){
                     model.GetMoreEmployeeInfo(view.getRowValues().get(0));
                     try {
-                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtendedColumnNames());
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -225,7 +225,7 @@ public class BDController {
                 {
                     model.GetMoreSchoolInfo(view.getRowValues().get(0));
                     try {
-                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtendedColumnNames());
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -233,7 +233,7 @@ public class BDController {
                 else if(tableName.equals("Equipment")){
                     model.GetMoreEquipmentInfo(view.getRowValues().get(0));
                     try {
-                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtendedColumnNames());
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -241,7 +241,7 @@ public class BDController {
                 else if(tableName.equals("Clients")){
                     model.GetMoreClientInfo(view.getRowValues().get(0));
                     try {
-                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtendedColumnNames());
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -254,7 +254,7 @@ public class BDController {
                     values[3]= view.getRowValues().get(3);
                     model.GetMoreCourseClientInfo(values);
                     try {
-                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtendedColumnNames());
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -266,7 +266,7 @@ public class BDController {
                     values[2]= view.getRowValues().get(2);
                     model.GetMoreCourseInfo(values);
                     try {
-                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtandedColumnNames());
+                        view.OpenExtendedInfoWindow(new CancelButtonListener(), model.getSubResult1(), model.getExtendedColumnNames());
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
