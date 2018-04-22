@@ -7,7 +7,6 @@ public class BDModel {
     private OracleConnection MyBase;
     private ResultSet result;
     private ResultSet subResult1;
-    private ResultSet subResult2;
     private ArrayList<String> extendedColumnNames;
     private String error;
 
@@ -166,10 +165,10 @@ public class BDModel {
                 "FROM EMPLOYEES INNER JOIN COURSES " +
                 "ON PESEL = COURSES.EMPLOYEE_PESEL " +
                 "WHERE PESEL = " + identifier;
-        String query2 = "SELECT EMPLOYEES.PESEL FROM EMPLOYEES A " +
-                "INNER JOIN EMPLOYEES " +
-                "ON A.PESEL = EMPLOYEES.SUPERVISOR_PESEL " +
-                "WHERE A.PESEL = " + identifier;
+//        String query2 = "SELECT EMPLOYEES.PESEL FROM EMPLOYEES A " +
+//                "INNER JOIN EMPLOYEES " +
+//                "ON A.PESEL = EMPLOYEES.SUPERVISOR_PESEL " +
+//                "WHERE A.PESEL = " + identifier;
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("COURSES.BEGINNING_DATE");
         columnNames.add("COURSES.END_DATE");
@@ -192,10 +191,10 @@ public class BDModel {
                 "FROM SCHOOLS INNER JOIN EMPLOYEES " +
                 "ON SCHOOLS.SCHOOL_ID = EMPLOYEES.SCHOOL_ID " +
                 "WHERE SCHOOLS.SCHOOL_ID = " + identifier;
-        String query2 = "SELECT EQUIPMENT.EQUIPMENT_ID " +
-                "FROM SCHOOLS INNER JOIN EQUIPMENT " +
-                "ON SCHOOLS.SCHOOL_ID = EQUIPMENT.SCHOOL_ID " +
-                "WHERE SCHOOLS.SCHOOL_ID = " + identifier;
+//        String query2 = "SELECT EQUIPMENT.EQUIPMENT_ID " +
+//                "FROM SCHOOLS INNER JOIN EQUIPMENT " +
+//                "ON SCHOOLS.SCHOOL_ID = EQUIPMENT.SCHOOL_ID " +
+//                "WHERE SCHOOLS.SCHOOL_ID = " + identifier;
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("EMPLOYEES.FIRSTNAME");
         columnNames.add("EMPLOYEES.SECONDNAME");
@@ -213,8 +212,7 @@ public class BDModel {
     }
     int GetMoreEquipmentInfo(String identifier)
     {
-        /*String query = "SELECT * FROM EQUIPMENT " +
-                "WHERE ID = " + identifier;*/
+
         String query = "SELECT EQUIPMENT.EQUIPMENT_ID, EQUIPMENT.PRODUCTIONYEAR ,SCHOOLS.SCHOOL_ID, SCHOOLS.ADDRESS " +
                 "FROM SCHOOLS INNER JOIN EQUIPMENT " +
                 "ON SCHOOLS.SCHOOL_ID = EQUIPMENT.SCHOOL_ID " +
@@ -225,8 +223,6 @@ public class BDModel {
         columnNames.add("SCHOOLS.SCHOOL_ID");
         columnNames.add("SCHOOLS.ADDRESS");
         extendedColumnNames = columnNames;
-        /*System.out.println(query);
-        System.out.println(columnNames);*/
         try {
             subResult1 = MyBase.DoQuery(query);
         }
@@ -238,10 +234,10 @@ public class BDModel {
     }
     int GetMoreClientInfo(String identifier)
     {
-        String query2 = "SELECT EQUIPMENT.ID " +
-                "FROM CLIENTS INNER JOIN EQUIPMENT " +
-                "ON CLIENTS.CLIENT_PESEL = EQUIPMENT.CLIENT_PESEL " +
-                "WHERE CLIENTS.CLIENT_PESEL = " + identifier;
+//        String query2 = "SELECT EQUIPMENT.ID " +
+//                "FROM CLIENTS INNER JOIN EQUIPMENT " +
+//                "ON CLIENTS.CLIENT_PESEL = EQUIPMENT.CLIENT_PESEL " +
+//                "WHERE CLIENTS.CLIENT_PESEL = " + identifier;
         String query1 = "SELECT COURSES_CLIENTS.* " +
                 "FROM CLIENTS INNER JOIN COURSES_CLIENTS " +
                 "ON CLIENTS.CLIENT_PESEL = COURSES_CLIENTS.CLIENT_PESEL " +
@@ -254,7 +250,6 @@ public class BDModel {
         extendedColumnNames =columnNames;
         try {
             subResult1 = MyBase.DoQuery(query1);
-            //subResult2 = MyBase.DoQuery(query2);
         }
         catch (SQLException e) {
             error = e.getMessage();
@@ -264,11 +259,6 @@ public class BDModel {
     }
     int GetMoreCourseClientInfo(String[] identifier)
     {
-        /*String query = "SELECT * FROM COURSES_CLIENTS " +
-                "WHERE COURSE_BEGINNING_DATE = '" + identifier[0] + "' AND " +
-                "COURSE_END_DATE = '" + identifier[1] + "' AND " +
-                "COURSE_EMPLOYEE_PESEL = " + identifier[2] + " AND " +
-                "CLIENT_PESEL = " + identifier[3];*/
         String query = "SELECT COURSES_CLIENTS.COURSE_BEGINNING_DATE, COURSES_CLIENTS.COURSE_END_DATE, " +
                 "EMPLOYEES.FIRSTNAME, EMPLOYEES.SECONDNAME, COURSES_CLIENTS.COURSE_EMPLOYEE_PESEL, " +
                 "CLIENTS.FIRSTNAME, CLIENTS.SECONDNAME, COURSES_CLIENTS.CLIENT_PESEL FROM COURSES_CLIENTS, EMPLOYEES, CLIENTS " +
@@ -328,10 +318,6 @@ public class BDModel {
 
     public ResultSet getSubResult1() {
         return subResult1;
-    }
-
-    public ResultSet getSubResult2() {
-        return subResult2;
     }
 
     public String getError() {

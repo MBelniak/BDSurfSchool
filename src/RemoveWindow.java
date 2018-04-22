@@ -8,12 +8,10 @@ public class RemoveWindow extends JDialog{
     private JLabel label = new JLabel();
     private JButton confirmButton = new JButton("Tak");
     private JButton cancelButton = new JButton("Anuluj");
-    private String header;
 
     RemoveWindow(JFrame owner, String header){
         super(owner, "Usun rekord", true);
 
-        this.header = header;
         JPanel labelPanel = new JPanel();
         JPanel buttonPanel = new JPanel();
         this.setSize(WIDTH, HEIGHT);

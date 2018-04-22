@@ -53,7 +53,7 @@ public class BDView extends JFrame{
 
     private JButton addButton = new JButton("+");
     private JButton removeButton = new JButton("-");
-    private JButton updateButton = new JButton("Zmien rekord");
+   // private JButton updateButton = new JButton("Zmien rekord");
     private JButton showButton = new JButton("Pokaz tabele");
 
 
@@ -91,8 +91,6 @@ public class BDView extends JFrame{
             dataTable.setDefaultEditor(Object.class, null);
             comboPanel.add(tableHeader);
             tablePanel.add(dataTable);
-            //tablePanel.add(scrollPane);
-
 
             setCheckBoxPanel("-");
 
@@ -100,7 +98,6 @@ public class BDView extends JFrame{
             this.add(comboPanel, BorderLayout.NORTH);
             this.add(tablePanel, BorderLayout.CENTER);
             this.add(buttonPanel, BorderLayout.EAST);
-            //this.add(scrollPane,BorderLayout.CENTER);
 
     }
     void setCheckBoxPanel(String tableName){
